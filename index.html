@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>커피 노트 감별 퀴즈</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --bg-tint: #F7FFEA;
+    --card: #FFFFFF;
+    --ink: #14180F;
+    --ink-soft: #6E7566;
+    --line: rgba(20,24,15,0.10);
+    --accent: #D4FF3F;
+    --accent-ink: #1C220F;
+    --accent-deep: #9FCF1E;
+    --correct: #1C9A4B;
+    --correct-bg: #E7FBEC;
+    --wrong: #E8433A;
+    --wrong-bg: #FDEAE8;
+    --dot-off: #EAEFDD;
+    --shadow: 0 10px 30px rgba(20,24,15,0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12140D;
+      --bg-tint: #171B10;
+      --card: #1B2013;
+      --ink: #F3F7E9;
+      --ink-soft: #A6AE97;
+      --line: rgba(243,247,233,0.12);
+      --accent: #D4FF3F;
+      --accent-ink: #14170D;
+      --accent-deep: #B7E832;
+      --correct: #59D97F;
+      --correct-bg: #16301F;
+      --wrong: #FF7A70;
+      --wrong-bg: #341714;
+      --dot-off: #2A3020;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12140D;
+    --bg-tint: #171B10;
+    --card: #1B2013;
+    --ink: #F3F7E9;
+    --ink-soft: #A6AE97;
+    --line: rgba(243,247,233,0.12);
+    --accent: #D4FF3F;
+    --accent-ink: #14170D;
+    --accent-deep: #B7E832;
+    --correct: #59D97F;
+    --correct-bg: #16301F;
+    --wrong: #FF7A70;
+    --wrong-bg: #341714;
+    --dot-off: #2A3020;
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html {
+    scroll-padding-top: env(safe-area-inset-top, 0px);
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+  body {
+    background:
+      radial-gradient(600px 300px at 90% -5%, var(--bg-tint), transparent 60%),
+      var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .stage {
+    width: 100%;
+    max-width: 420px;
+    padding: 28px 20px 20px;
+  }
+
+  header.hero {
+    margin-bottom: 22px;
+  }
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--accent-ink);
+    background: var(--accent);
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin: 0 0 12px;
+  }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .sub {
+    color: var(--ink-soft);
+    font-size: 14px;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .progress {
+    display: flex;
+    gap: 6px;
+    margin: 20px 0 16px;
+  }
+  .progress .dot {
+    height: 5px;
+    flex: 1;
+    border-radius: 4px;
+    background: var(--dot-off);
+    overflow: hidden;
+  }
+  .progress .dot.filled { background: var(--accent-deep); }
+  .progress .dot.current { background: var(--accent); }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 22px 18px 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .qnum {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--accent-deep);
+    margin: 0 0 8px;
+    text-transform: none;
+  }
+  .qtext {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    line-height: 1.4;
+    font-weight: 700;
+    margin: 0 0 18px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .opt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+    width: 100%;
+    min-height: 52px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1.5px solid var(--line);
+    background: transparent;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.08s ease;
+  }
+  .opt:active { transform: scale(0.98); }
+  .opt .letter {
+    flex: none;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1.5px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+  .opt.selected {
+    border-color: var(--accent-deep);
+    background: var(--accent);
+  }
+  .opt.selected .letter {
+    background: var(--accent-ink);
+    border-color: var(--accent-ink);
+    color: var(--accent);
+  }
+  .opt.selected, .opt.selected .letter { color: var(--accent-ink); }
+
+  .opt.correct {
+    border-color: var(--correct);
+    background: var(--correct-bg);
+  }
+  .opt.correct .letter { background: var(--correct); border-color: var(--correct); color: #fff; }
+  .opt.wrong {
+    border-color: var(--wrong);
+    background: var(--wrong-bg);
+  }
+  .opt.wrong .letter { background: var(--wrong); border-color: var(--wrong); color: #fff; }
+
+  .note {
+    margin-top: 12px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
+  }
+
+  .navbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    padding: 14px 20px calc(14px + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(to top, var(--bg) 55%, transparent);
+  }
+  .navbar-inner {
+    width: 100%;
+    max-width: 420px;
+  }
+  button.primary {
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    min-height: 54px;
+    border-radius: 999px;
+    border: none;
+    background: var(--accent);
+    color: var(--accent-ink);
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(212,255,63,0.35);
+    transition: opacity 0.15s ease, transform 0.1s ease;
+  }
+  button.primary:disabled {
+    opacity: 0.35;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+  button.primary:not(:disabled):active { transform: scale(0.98); }
+
+  button.ghost {
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    min-height: 52px;
+    border-radius: 999px;
+    border: 1.5px solid var(--line);
+    background: var(--card);
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  /* Results */
+  .result-score {
+    text-align: center;
+    padding: 6px 0 4px;
+  }
+  .result-score .big {
+    font-family: 'Fraunces', serif;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0;
+  }
+  .result-score .big span { color: var(--accent-deep); }
+  .result-score p {
+    color: var(--ink-soft);
+    font-size: 14.5px;
+    margin: 10px 0 0;
+    line-height: 1.5;
+  }
+
+  .review {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .review .item {
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 15px 15px 13px;
+    background: var(--card);
+  }
+  .review .item .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-bottom: 8px;
+  }
+  .review .item.correct .tag { background: var(--correct-bg); color: var(--correct); }
+  .review .item.wrong .tag { background: var(--wrong-bg); color: var(--wrong); }
+  .review .item .q {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0 0 6px;
+  }
+  .review .item .a {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin: 0;
+  }
+  .review .item .a b { color: var(--ink); }
+
+  .card-footer {
+    margin-top: 18px;
+  }
+
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <header class="hero" id="headerBlock">
+    <p class="kicker">Bb Coffee Note Quiz</p>
+    <h1>내 코 끝의 감각을 테스트해보세요</h1>
+    <p class="sub">오늘 시음하는 원두 3종에 대한 질문. 정답을 고르고 제출하면 그 자리에서 결과를 확인할 수 있어요.</p>
+  </header>
+
+  <div class="progress" id="progress"></div>
+
+  <div class="card" id="quizCard"></div>
+
+</div>
+
+<div class="navbar" id="navRow">
+  <div class="navbar-inner">
+    <button class="primary" id="nextBtn" disabled>다음</button>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [
+  {
+    q: "콜롬비아 아폰테 원두에서 가장 잘 느껴지는 컵노트는?",
+    options: ["오렌지", "위스키", "말린자두", "맥아"],
+    correct: 0,
+    note: "콜롬비아 아폰테는 감귤류 산미와 함께 오렌지 계열의 상큼하고 밝은 노트가 특징으로 자주 언급됩니다."
+  },
+  {
+    q: "브라질 상파울루 원두에서 가장 잘 느껴지는 컵노트는?",
+    options: ["볶은 견과류", "라임", "팔각", "스모키"],
+    correct: 0,
+    note: "브라질 원두는 대체로 산미가 낮고 바디감이 묵직하며, 볶은 견과류·너트 계열 노트가 두드러지는 경우가 많습니다."
+  },
+  {
+    q: "에티오피아 가라 아제나 원두에서 가장 잘 느껴지는 컵노트는?",
+    options: ["블루베리", "위스키", "자몽", "포도"],
+    correct: 0,
+    note: "에티오피아 내추럴 프로세스 원두는 블루베리를 비롯한 베리류 노트로 잘 알려져 있습니다."
+  }
+];
+
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+
+const progressEl = document.getElementById('progress');
+const cardEl = document.getElementById('quizCard');
+const navRow = document.getElementById('navRow');
+const nextBtn = document.getElementById('nextBtn');
+const headerBlock = document.getElementById('headerBlock');
+
+function renderProgress() {
+  progressEl.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i < current ? ' filled' : (i === current ? ' current' : ''));
+    progressEl.appendChild(d);
+  });
+}
+
+function renderQuestion() {
+  const item = QUESTIONS[current];
+  const chosen = answers[current];
+  cardEl.innerHTML = `
+    <p class="qnum">Q${current + 1} / ${QUESTIONS.length}</p>
+    <p class="qtext">${item.q}</p>
+    <div class="options" id="optWrap"></div>
+  `;
+  const wrap = document.getElementById('optWrap');
+  item.options.forEach((opt, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt' + (chosen === idx ? ' selected' : '');
+    btn.innerHTML = `<span class="letter">${String.fromCharCode(65 + idx)}</span><span>${opt}</span>`;
+    btn.onclick = () => {
+      answers[current] = idx;
+      renderQuestion();
+      updateNextButton();
+    };
+    wrap.appendChild(btn);
+  });
+  updateNextButton();
+}
+
+function updateNextButton() {
+  nextBtn.disabled = answers[current] === null;
+  nextBtn.textContent = current === QUESTIONS.length - 1 ? '제출하기' : '다음';
+}
+
+nextBtn.onclick = () => {
+  if (current < QUESTIONS.length - 1) {
+    current += 1;
+    renderProgress();
+    renderQuestion();
+  } else {
+    renderResults();
+  }
+};
+
+function renderResults() {
+  const score = answers.reduce((acc, a, i) => acc + (a === QUESTIONS[i].correct ? 1 : 0), 0);
+  progressEl.innerHTML = '';
+  navRow.classList.add('hidden');
+
+  headerBlock.innerHTML = `
+    <p class="kicker">Bb Coffee Note Quiz</p>
+    <h1>테이스팅 결과가 나왔어요</h1>
+    <p class="sub">아래에서 문항별 정답과 짧은 설명을 확인해보세요.</p>
+  `;
+
+  let resultHtml = `
+    <div class="result-score">
+      <p class="big"><span>${score}</span> / ${QUESTIONS.length}</p>
+      <p>${scoreMessage(score)}</p>
+    </div>
+    <div class="review">
+  `;
+
+  QUESTIONS.forEach((item, i) => {
+    const isCorrect = answers[i] === item.correct;
+    resultHtml += `
+      <div class="item ${isCorrect ? 'correct' : 'wrong'}">
+        <span class="tag">${isCorrect ? '정답' : '오답'}</span>
+        <p class="q">Q${i + 1}. ${item.q}</p>
+        <p class="a">
+          내 선택: <b>${item.options[answers[i]]}</b><br>
+          ${isCorrect ? '' : `정답: <b>${item.options[item.correct]}</b><br>`}
+          ${item.note}
+        </p>
+      </div>
+    `;
+  });
+
+  resultHtml += `</div>
+    <div class="card-footer">
+      <button class="ghost" id="retryBtn">다시 풀기</button>
+    </div>
+  `;
+
+  cardEl.innerHTML = resultHtml;
+  document.getElementById('retryBtn').onclick = () => {
+    current = 0;
+    answers = new Array(QUESTIONS.length).fill(null);
+    navRow.classList.remove('hidden');
+    headerBlock.innerHTML = `
+      <p class="kicker">Bb Coffee Note Quiz</p>
+      <h1>내 코 끝의 감각을 테스트해보세요</h1>
+      <p class="sub">오늘 시음하는 원두 3종에 대한 질문. 정답을 고르고 제출하면 그 자리에서 결과를 확인할 수 있어요.</p>
+    `;
+    renderProgress();
+    renderQuestion();
+  };
+}
+
+function scoreMessage(score) {
+  const total = QUESTIONS.length;
+  if (score === total) return '퍼펙트 테이스터! 오늘 노트, 완벽하게 잡아내셨어요 🎉';
+  if (score === total - 1) return '감각 좋은데요? 오늘 노트 대부분을 정확히 맞히셨어요!';
+  if (score >= 1) return '좋아요! 오늘 커피가 남긴 인상, 확실히 느끼셨네요 ☕';
+  return '오늘 코 끝에 남은 인상, 다음 잔에서 다시 확인해보세요 — 그것도 재미니까요 ✨';
+}
+
+renderProgress();
+renderQuestion();
+</script>
+</body>
+</html>
