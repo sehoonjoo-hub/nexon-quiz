@@ -6,130 +6,104 @@
 <title>커피 노트 감별 퀴즈</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #FFFFFF;
-    --bg-tint: #F7FFEA;
+    --navy: #0A3255;
+    --bg: #F3F6FA;
     --card: #FFFFFF;
-    --ink: #14180F;
-    --ink-soft: #6E7566;
-    --line: rgba(20,24,15,0.10);
-    --accent: #D4FF3F;
-    --accent-ink: #1C220F;
-    --accent-deep: #9FCF1E;
-    --correct: #1C9A4B;
-    --correct-bg: #E7FBEC;
-    --wrong: #E8433A;
-    --wrong-bg: #FDEAE8;
-    --dot-off: #EAEFDD;
-    --shadow: 0 10px 30px rgba(20,24,15,0.08);
+    --ink: #0A1C2E;
+    --ink-soft: #5B6B7C;
+    --line: rgba(10,50,85,0.12);
+    --accent: #0A3255;
+    --accent-ink: #FFFFFF;
+    --accent-soft: #E3EBF4;
+    --correct: #16884A;
+    --correct-bg: #E5F6EC;
+    --wrong: #D63B32;
+    --wrong-bg: #FCE9E7;
+    --dot-off: #D9E2EC;
+    --shadow: 0 10px 30px rgba(10,50,85,0.10);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #12140D;
-      --bg-tint: #171B10;
-      --card: #1B2013;
-      --ink: #F3F7E9;
-      --ink-soft: #A6AE97;
-      --line: rgba(243,247,233,0.12);
-      --accent: #D4FF3F;
-      --accent-ink: #14170D;
-      --accent-deep: #B7E832;
-      --correct: #59D97F;
-      --correct-bg: #16301F;
-      --wrong: #FF7A70;
-      --wrong-bg: #341714;
-      --dot-off: #2A3020;
+      --bg: #06182A;
+      --card: #0D2440;
+      --ink: #EEF3F9;
+      --ink-soft: #9DB0C4;
+      --line: rgba(238,243,249,0.14);
+      --accent: #8DB4E8;
+      --accent-ink: #06182A;
+      --accent-soft: #15314F;
+      --correct: #5FD68E;
+      --correct-bg: #123024;
+      --wrong: #FF7D73;
+      --wrong-bg: #3A1816;
+      --dot-off: #1F3A58;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #12140D;
-    --bg-tint: #171B10;
-    --card: #1B2013;
-    --ink: #F3F7E9;
-    --ink-soft: #A6AE97;
-    --line: rgba(243,247,233,0.12);
-    --accent: #D4FF3F;
-    --accent-ink: #14170D;
-    --accent-deep: #B7E832;
-    --correct: #59D97F;
-    --correct-bg: #16301F;
-    --wrong: #FF7A70;
-    --wrong-bg: #341714;
-    --dot-off: #2A3020;
+    --bg: #06182A;
+    --card: #0D2440;
+    --ink: #EEF3F9;
+    --ink-soft: #9DB0C4;
+    --line: rgba(238,243,249,0.14);
+    --accent: #8DB4E8;
+    --accent-ink: #06182A;
+    --accent-soft: #15314F;
+    --correct: #5FD68E;
+    --correct-bg: #123024;
+    --wrong: #FF7D73;
+    --wrong-bg: #3A1816;
+    --dot-off: #1F3A58;
   }
 
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html {
-    scroll-padding-top: env(safe-area-inset-top, 0px);
-  }
-  html, body {
-    height: 100%;
-    margin: 0;
-  }
+  html, body { height: 100%; margin: 0; }
   body {
-    background:
-      radial-gradient(600px 300px at 90% -5%, var(--bg-tint), transparent 60%),
-      var(--bg);
+    background: var(--bg);
     color: var(--ink);
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Inter', -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
     min-height: 100%;
     display: flex;
     justify-content: center;
+    word-break: keep-all;
   }
-
-  .stage {
-    width: 100%;
-    max-width: 420px;
-    padding: 28px 20px 20px;
-  }
+  .stage { width: 100%; max-width: 420px; padding: 0 16px 20px; }
 
   header.hero {
-    margin-bottom: 22px;
+    background: var(--navy);
+    color: #fff;
+    margin: 0 -16px 0;
+    padding: 30px 20px 26px;
+    border-radius: 0 0 24px 24px;
   }
   .kicker {
     display: inline-flex;
-    align-items: center;
     font-size: 12.5px;
     font-weight: 700;
-    color: var(--accent-ink);
-    background: var(--accent);
+    color: var(--navy);
+    background: #fff;
     padding: 5px 12px;
     border-radius: 999px;
     margin: 0 0 12px;
+    letter-spacing: 0.02em;
   }
   h1 {
-    font-family: 'Fraunces', serif;
-    font-size: 26px;
-    font-weight: 700;
-    line-height: 1.25;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.3;
     margin: 0 0 8px;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
   }
-  .sub {
-    color: var(--ink-soft);
-    font-size: 14px;
-    line-height: 1.55;
-    margin: 0;
-  }
+  .sub { color: rgba(255,255,255,0.78); font-size: 14px; line-height: 1.55; margin: 0; }
 
-  .progress {
-    display: flex;
-    gap: 6px;
-    margin: 20px 0 16px;
-  }
-  .progress .dot {
-    height: 5px;
-    flex: 1;
-    border-radius: 4px;
-    background: var(--dot-off);
-    overflow: hidden;
-  }
-  .progress .dot.filled { background: var(--accent-deep); }
-  .progress .dot.current { background: var(--accent); }
+  .progress { display: flex; gap: 6px; margin: 20px 0 16px; }
+  .progress .dot { height: 5px; flex: 1; border-radius: 4px; background: var(--dot-off); }
+  .progress .dot.filled, .progress .dot.current { background: var(--accent); }
+  .progress .dot.current { opacity: 0.55; }
 
   .card {
     background: var(--card);
@@ -138,211 +112,96 @@
     padding: 22px 18px 20px;
     box-shadow: var(--shadow);
   }
+  .result-mode .card { margin-top: 20px; }
+  .qnum { font-size: 12.5px; font-weight: 700; color: var(--accent); margin: 0 0 8px; }
+  .qtext { font-size: 18px; line-height: 1.45; font-weight: 800; margin: 0 0 18px; letter-spacing: -0.01em; }
 
-  .qnum {
-    font-size: 12.5px;
-    font-weight: 700;
-    color: var(--accent-deep);
-    margin: 0 0 8px;
-    text-transform: none;
-  }
-  .qtext {
-    font-family: 'Fraunces', serif;
-    font-size: 19px;
-    line-height: 1.4;
-    font-weight: 700;
-    margin: 0 0 18px;
-  }
-
-  .options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+  .options { display: flex; flex-direction: column; gap: 10px; }
   .opt {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-align: left;
-    width: 100%;
-    min-height: 52px;
-    padding: 12px 14px;
-    border-radius: 14px;
-    border: 1.5px solid var(--line);
-    background: transparent;
-    color: var(--ink);
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
+    display: flex; align-items: center; gap: 12px;
+    text-align: left; width: 100%; min-height: 52px;
+    padding: 12px 14px; border-radius: 14px;
+    border: 1.5px solid var(--line); background: transparent; color: var(--ink);
+    font-family: inherit; font-size: 15px; font-weight: 500; cursor: pointer;
     transition: border-color 0.15s ease, background 0.15s ease, transform 0.08s ease;
   }
   .opt:active { transform: scale(0.98); }
   .opt .letter {
-    flex: none;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
+    flex: none; width: 26px; height: 26px; border-radius: 50%;
     border: 1.5px solid var(--line);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--ink-soft);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: var(--ink-soft);
   }
-  .opt.selected {
-    border-color: var(--accent-deep);
-    background: var(--accent);
-  }
-  .opt.selected .letter {
-    background: var(--accent-ink);
-    border-color: var(--accent-ink);
-    color: var(--accent);
-  }
-  .opt.selected, .opt.selected .letter { color: var(--accent-ink); }
-
-  .opt.correct {
-    border-color: var(--correct);
-    background: var(--correct-bg);
-  }
-  .opt.correct .letter { background: var(--correct); border-color: var(--correct); color: #fff; }
-  .opt.wrong {
-    border-color: var(--wrong);
-    background: var(--wrong-bg);
-  }
-  .opt.wrong .letter { background: var(--wrong); border-color: var(--wrong); color: #fff; }
-
-  .note {
-    margin-top: 12px;
-    font-size: 13.5px;
-    line-height: 1.55;
-    color: var(--ink-soft);
-    padding-top: 12px;
-    border-top: 1px dashed var(--line);
-  }
+  .opt.selected { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); }
+  .opt.selected .letter { background: var(--accent-ink); border-color: var(--accent-ink); color: var(--accent); }
 
   .navbar {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    padding: 14px 20px calc(14px + env(safe-area-inset-bottom, 0px));
-    background: linear-gradient(to top, var(--bg) 55%, transparent);
+    position: fixed; left: 0; right: 0; bottom: 0;
+    display: flex; justify-content: center;
+    padding: 14px 16px calc(14px + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(to top, var(--bg) 60%, transparent);
   }
-  .navbar-inner {
-    width: 100%;
-    max-width: 420px;
-  }
+  .navbar-inner { width: 100%; max-width: 420px; }
   button.primary {
-    width: 100%;
-    font-family: 'Inter', sans-serif;
-    font-weight: 800;
-    font-size: 16px;
-    min-height: 54px;
-    border-radius: 999px;
-    border: none;
-    background: var(--accent);
-    color: var(--accent-ink);
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(212,255,63,0.35);
+    width: 100%; font-family: inherit; font-weight: 800; font-size: 16px;
+    min-height: 54px; border-radius: 999px; border: none;
+    background: var(--accent); color: var(--accent-ink); cursor: pointer;
+    box-shadow: 0 8px 20px rgba(10,50,85,0.25);
     transition: opacity 0.15s ease, transform 0.1s ease;
   }
-  button.primary:disabled {
-    opacity: 0.35;
-    box-shadow: none;
-    cursor: not-allowed;
-  }
+  button.primary:disabled { opacity: 0.3; box-shadow: none; cursor: not-allowed; }
   button.primary:not(:disabled):active { transform: scale(0.98); }
-
   button.ghost {
-    width: 100%;
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    font-size: 15px;
-    min-height: 52px;
-    border-radius: 999px;
-    border: 1.5px solid var(--line);
-    background: var(--card);
-    color: var(--ink);
-    cursor: pointer;
+    width: 100%; font-family: inherit; font-weight: 700; font-size: 14px;
+    min-height: 46px; border-radius: 999px;
+    border: 1.5px solid var(--line); background: transparent; color: var(--ink-soft); cursor: pointer;
   }
 
   /* Results */
-  .result-score {
-    text-align: center;
-    padding: 6px 0 4px;
-  }
-  .result-score .big {
-    font-family: 'Fraunces', serif;
-    font-size: 48px;
-    font-weight: 700;
-    line-height: 1;
-    margin: 0;
-  }
-  .result-score .big span { color: var(--accent-deep); }
-  .result-score p {
-    color: var(--ink-soft);
-    font-size: 14.5px;
-    margin: 10px 0 0;
-    line-height: 1.5;
-  }
+  .result-score { text-align: center; padding: 4px 0 2px; }
+  .result-score .big { font-size: 52px; font-weight: 800; line-height: 1; margin: 0; letter-spacing: -0.03em; }
+  .result-score .big span { color: var(--accent); }
+  .result-score p { color: var(--ink-soft); font-size: 14.5px; margin: 10px 0 0; line-height: 1.5; }
 
-  .review {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  .ticket {
+    margin-top: 18px; padding: 14px 16px; border-radius: 14px;
+    background: var(--accent-soft); display: flex; justify-content: space-between; align-items: center; gap: 12px;
   }
-  .review .item {
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 15px 15px 13px;
-    background: var(--card);
+  .ticket .label { font-size: 12px; color: var(--ink-soft); margin: 0 0 2px; }
+  .ticket .code { font-size: 22px; font-weight: 800; letter-spacing: 0.12em; margin: 0; }
+  .ticket .time { font-size: 12px; color: var(--ink-soft); margin: 2px 0 0; }
+  .badge {
+    flex: none; font-size: 12.5px; font-weight: 800; padding: 6px 12px; border-radius: 999px;
+    background: var(--card); color: var(--accent); border: 1.5px solid var(--accent);
   }
-  .review .item .tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 999px;
-    margin-bottom: 8px;
-  }
+  .badge.done { background: var(--correct); border-color: var(--correct); color: #fff; }
+
+  .review { margin-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+  .review .item { border: 1px solid var(--line); border-radius: 14px; padding: 13px 14px 12px; }
+  .review .item .tag { display: inline-flex; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-bottom: 6px; }
   .review .item.correct .tag { background: var(--correct-bg); color: var(--correct); }
   .review .item.wrong .tag { background: var(--wrong-bg); color: var(--wrong); }
-  .review .item .q {
-    font-family: 'Fraunces', serif;
-    font-size: 15px;
-    font-weight: 700;
-    margin: 0 0 6px;
-  }
-  .review .item .a {
-    font-size: 13.5px;
-    color: var(--ink-soft);
-    line-height: 1.5;
-    margin: 0;
-  }
+  .review .item .q { font-size: 14.5px; font-weight: 700; margin: 0 0 6px; }
+  .review .item .a { font-size: 13.5px; color: var(--ink-soft); line-height: 1.5; margin: 0; }
   .review .item .a b { color: var(--ink); }
 
-  .card-footer {
-    margin-top: 18px;
+  .staff { margin-top: 18px; padding-top: 16px; border-top: 1px dashed var(--line); }
+  .staff-hint { font-size: 12.5px; color: var(--ink-soft); text-align: center; margin: 0 0 10px; line-height: 1.5; }
+  .pin-row { display: flex; gap: 8px; margin-top: 10px; }
+  .pin-row input {
+    flex: 1; min-width: 0; min-height: 46px; border-radius: 12px; border: 1.5px solid var(--line);
+    background: var(--card); color: var(--ink); font-size: 16px; padding: 0 14px; font-family: inherit;
   }
+  .pin-row button { flex: none; width: auto; padding: 0 18px; min-height: 46px; font-size: 14px; }
+  .pin-msg { font-size: 12.5px; color: var(--wrong); margin: 8px 0 0; min-height: 1em; text-align: center; }
 
   .hidden { display: none !important; }
 </style>
 </head>
 <body>
-<div class="stage">
+<div class="stage" id="stage">
 
-  <header class="hero" id="headerBlock">
-    <p class="kicker">Bb Coffee Note Quiz</p>
-    <h1>내 코 끝의 감각을 테스트해보세요</h1>
-    <p class="sub">오늘 시음하는 원두 3종에 대한 질문. 정답을 고르고 제출하면 그 자리에서 결과를 확인할 수 있어요.</p>
-  </header>
+  <header class="hero" id="headerBlock"></header>
 
   <div class="progress" id="progress"></div>
 
@@ -357,6 +216,10 @@
 </div>
 
 <script>
+/* ===== 설정 ===== */
+const STAFF_PIN = "1015";              // 직원 확인용 비밀번호 (행사 전 변경 권장)
+const STORAGE_KEY = "bb-nexon-quiz-v1"; // 이 값을 바꾸면 모든 참여 기록이 초기화된 것처럼 동작
+
 const QUESTIONS = [
   {
     q: "콜롬비아 아폰테 원두에서 가장 잘 느껴지는 컵노트는?",
@@ -371,21 +234,50 @@ const QUESTIONS = [
     note: "브라질 원두는 대체로 산미가 낮고 바디감이 묵직하며, 볶은 견과류·너트 계열 노트가 두드러지는 경우가 많습니다."
   },
   {
-    q: "에티오피아 가라 아제나 원두에서 가장 잘 느껴지는 컵노트는?",
-    options: ["블루베리", "위스키", "자몽", "포도"],
+    q: "에티오피아 첼베사 원두에서 가장 잘 느껴지는 컵노트는?",
+    options: ["천도 복숭아", "크랜베리", "라임", "초콜릿"],
     correct: 0,
-    note: "에티오피아 내추럴 프로세스 원두는 블루베리를 비롯한 베리류 노트로 잘 알려져 있습니다."
+    note: "에티오피아 첼베사는 천도 복숭아처럼 달콤하고 과즙감 있는 핵과류 노트가 돋보이는 원두입니다."
   }
 ];
 
+/* ===== 저장 (같은 기기·브라우저 기준 1회 참여) ===== */
+function loadRecord() {
+  try { const r = localStorage.getItem(STORAGE_KEY); return r ? JSON.parse(r) : null; } catch (e) { return null; }
+}
+function saveRecord(rec) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(rec)); } catch (e) {}
+}
+function makeCode() {
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let s = "";
+  for (let i = 0; i < 4; i++) s += chars[Math.floor(Math.random() * chars.length)];
+  return s;
+}
+function fmtTime(ts) {
+  const d = new Date(ts);
+  const p = n => String(n).padStart(2, "0");
+  return `${d.getMonth() + 1}/${d.getDate()} ${p(d.getHours())}:${p(d.getMinutes())} 참여`;
+}
+
 let current = 0;
 let answers = new Array(QUESTIONS.length).fill(null);
+let record = null;
 
+const stageEl = document.getElementById('stage');
 const progressEl = document.getElementById('progress');
 const cardEl = document.getElementById('quizCard');
 const navRow = document.getElementById('navRow');
 const nextBtn = document.getElementById('nextBtn');
 const headerBlock = document.getElementById('headerBlock');
+
+function renderHeader(title, sub) {
+  headerBlock.innerHTML = `
+    <p class="kicker">BEAN BROTHERS × NEXON</p>
+    <h1>${title}</h1>
+    <p class="sub">${sub}</p>
+  `;
+}
 
 function renderProgress() {
   progressEl.innerHTML = '';
@@ -409,96 +301,129 @@ function renderQuestion() {
     const btn = document.createElement('button');
     btn.className = 'opt' + (chosen === idx ? ' selected' : '');
     btn.innerHTML = `<span class="letter">${String.fromCharCode(65 + idx)}</span><span>${opt}</span>`;
-    btn.onclick = () => {
-      answers[current] = idx;
-      renderQuestion();
-      updateNextButton();
-    };
+    btn.onclick = () => { answers[current] = idx; renderQuestion(); };
     wrap.appendChild(btn);
   });
-  updateNextButton();
-}
-
-function updateNextButton() {
   nextBtn.disabled = answers[current] === null;
   nextBtn.textContent = current === QUESTIONS.length - 1 ? '제출하기' : '다음';
 }
 
 nextBtn.onclick = () => {
+  if (answers[current] === null) return;
   if (current < QUESTIONS.length - 1) {
     current += 1;
     renderProgress();
     renderQuestion();
   } else {
+    const score = answers.reduce((acc, a, i) => acc + (a === QUESTIONS[i].correct ? 1 : 0), 0);
+    record = { answers: answers.slice(), score, code: makeCode(), ts: Date.now(), claimed: false };
+    saveRecord(record);
     renderResults();
+    window.scrollTo(0, 0);
   }
 };
-
-function renderResults() {
-  const score = answers.reduce((acc, a, i) => acc + (a === QUESTIONS[i].correct ? 1 : 0), 0);
-  progressEl.innerHTML = '';
-  navRow.classList.add('hidden');
-
-  headerBlock.innerHTML = `
-    <p class="kicker">Bb Coffee Note Quiz</p>
-    <h1>테이스팅 결과가 나왔어요</h1>
-    <p class="sub">아래에서 문항별 정답과 짧은 설명을 확인해보세요.</p>
-  `;
-
-  let resultHtml = `
-    <div class="result-score">
-      <p class="big"><span>${score}</span> / ${QUESTIONS.length}</p>
-      <p>${scoreMessage(score)}</p>
-    </div>
-    <div class="review">
-  `;
-
-  QUESTIONS.forEach((item, i) => {
-    const isCorrect = answers[i] === item.correct;
-    resultHtml += `
-      <div class="item ${isCorrect ? 'correct' : 'wrong'}">
-        <span class="tag">${isCorrect ? '정답' : '오답'}</span>
-        <p class="q">Q${i + 1}. ${item.q}</p>
-        <p class="a">
-          내 선택: <b>${item.options[answers[i]]}</b><br>
-          ${isCorrect ? '' : `정답: <b>${item.options[item.correct]}</b><br>`}
-          ${item.note}
-        </p>
-      </div>
-    `;
-  });
-
-  resultHtml += `</div>
-    <div class="card-footer">
-      <button class="ghost" id="retryBtn">다시 풀기</button>
-    </div>
-  `;
-
-  cardEl.innerHTML = resultHtml;
-  document.getElementById('retryBtn').onclick = () => {
-    current = 0;
-    answers = new Array(QUESTIONS.length).fill(null);
-    navRow.classList.remove('hidden');
-    headerBlock.innerHTML = `
-      <p class="kicker">Bb Coffee Note Quiz</p>
-      <h1>내 코 끝의 감각을 테스트해보세요</h1>
-      <p class="sub">오늘 시음하는 원두 3종에 대한 질문. 정답을 고르고 제출하면 그 자리에서 결과를 확인할 수 있어요.</p>
-    `;
-    renderProgress();
-    renderQuestion();
-  };
-}
 
 function scoreMessage(score) {
   const total = QUESTIONS.length;
   if (score === total) return '퍼펙트 테이스터! 오늘 노트, 완벽하게 잡아내셨어요 🎉';
   if (score === total - 1) return '감각 좋은데요? 오늘 노트 대부분을 정확히 맞히셨어요!';
   if (score >= 1) return '좋아요! 오늘 커피가 남긴 인상, 확실히 느끼셨네요 ☕';
-  return '오늘 코 끝에 남은 인상, 다음 잔에서 다시 확인해보세요 — 그것도 재미니까요 ✨';
+  return '오늘 코 끝에 남은 인상, 다음 잔에서 다시 확인해보세요 ✨';
 }
 
-renderProgress();
-renderQuestion();
+function renderResults() {
+  const rec = record;
+  progressEl.innerHTML = '';
+  navRow.classList.add('hidden');
+  stageEl.classList.add('result-mode');
+
+  renderHeader('테이스팅 결과가 나왔어요', '이 화면을 부스 직원에게 보여주세요. 퀴즈는 1인 1회만 참여할 수 있어요.');
+
+  let html = `
+    <div class="result-score">
+      <p class="big"><span>${rec.score}</span> / ${QUESTIONS.length}</p>
+      <p>${scoreMessage(rec.score)}</p>
+    </div>
+    <div class="ticket">
+      <div>
+        <p class="label">참여 코드</p>
+        <p class="code">${rec.code}</p>
+        <p class="time">${fmtTime(rec.ts)}</p>
+      </div>
+      <span class="badge ${rec.claimed ? 'done' : ''}">${rec.claimed ? '선물 수령 완료' : '선물 미수령'}</span>
+    </div>
+    <div class="review">
+  `;
+
+  QUESTIONS.forEach((item, i) => {
+    const a = rec.answers[i];
+    const ok = a === item.correct;
+    html += `
+      <div class="item ${ok ? 'correct' : 'wrong'}">
+        <span class="tag">${ok ? '정답' : '오답'}</span>
+        <p class="q">Q${i + 1}. ${item.q}</p>
+        <p class="a">
+          내 선택: <b>${item.options[a]}</b><br>
+          ${ok ? '' : `정답: <b>${item.options[item.correct]}</b><br>`}
+          ${item.note}
+        </p>
+      </div>
+    `;
+  });
+
+  html += `</div>
+    <div class="staff">
+      ${rec.claimed
+        ? `<p class="staff-hint">선물 증정이 완료된 참여 기록이에요.</p>`
+        : `<p class="staff-hint">아래 버튼은 부스 직원 전용이에요.</p>
+           <button class="ghost" id="staffBtn">직원 확인 (선물 증정 처리)</button>
+           <div class="pin-row hidden" id="pinRow">
+             <input type="password" inputmode="numeric" autocomplete="off" placeholder="직원 비밀번호" id="pinInput">
+             <button class="primary" id="pinOk">확인</button>
+           </div>
+           <p class="pin-msg" id="pinMsg"></p>`}
+    </div>
+  `;
+
+  cardEl.innerHTML = html;
+
+  if (!rec.claimed) {
+    const staffBtn = document.getElementById('staffBtn');
+    const pinRow = document.getElementById('pinRow');
+    const pinInput = document.getElementById('pinInput');
+    const pinMsg = document.getElementById('pinMsg');
+    staffBtn.onclick = () => {
+      staffBtn.classList.add('hidden');
+      pinRow.classList.remove('hidden');
+      pinInput.focus();
+    };
+    const confirmPin = () => {
+      if (pinInput.value.trim() === STAFF_PIN) {
+        rec.claimed = true;
+        rec.claimedAt = Date.now();
+        saveRecord(rec);
+        renderResults();
+      } else {
+        pinMsg.textContent = '비밀번호가 맞지 않아요.';
+        pinInput.value = '';
+        pinInput.focus();
+      }
+    };
+    document.getElementById('pinOk').onclick = confirmPin;
+    pinInput.addEventListener('keydown', e => { if (e.key === 'Enter') confirmPin(); });
+  }
+}
+
+/* ===== 시작 ===== */
+record = loadRecord();
+if (record && Array.isArray(record.answers) && record.answers.length === QUESTIONS.length) {
+  renderResults();
+} else {
+  record = null;
+  renderHeader('내 코 끝의 감각을 테스트해보세요', '오늘 시음하는 원두 3종에 대한 질문이에요. 정답을 고르고 제출하면 바로 결과를 확인할 수 있어요. (1인 1회 참여)');
+  renderProgress();
+  renderQuestion();
+}
 </script>
 </body>
 </html>
