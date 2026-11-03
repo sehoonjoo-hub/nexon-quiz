@@ -415,8 +415,12 @@ function renderResults() {
 }
 
 /* ===== 시작 ===== */
+function isToday(ts) {
+  const a = new Date(ts), b = new Date();
+  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+}
 record = loadRecord();
-if (record && Array.isArray(record.answers) && record.answers.length === QUESTIONS.length) {
+if (record && Array.isArray(record.answers) && record.answers.length === QUESTIONS.length && isToday(record.ts)) {
   renderResults();
 } else {
   record = null;
